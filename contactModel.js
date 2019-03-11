@@ -2,16 +2,27 @@ var mongoose = require('mongoose');
 
 // Setup schema
 var contactSchema = mongoose.Schema({
-    name: {
+    loginName: {
         type: String,
         required: true
     },
-    email: {
+    firstName: {
         type: String,
         required: true
     },
-    gender: String,
-    phone: String,
+    lastName: {
+        type: String,
+        required: true
+    },
+    fullName: {
+        type: String,
+        required: true
+    },
+    emailAddress: {
+        type: String,
+        required: true
+    },
+    jobTitle: String,    
     create_date: {
         type: Date,
         default: Date.now
@@ -19,7 +30,7 @@ var contactSchema = mongoose.Schema({
 });
 
 // Export Contact model
-var Contact = module.exports = mongoose.model('contact', contactSchema);
+var Contact = module.exports = mongoose.model('user', contactSchema);
 
 
 module.exports.get = function (callback, limit) {

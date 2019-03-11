@@ -12,13 +12,14 @@ let apiRoutes = require("./api-routes")
 
 
 // Configure bodyparser to handle post requests
-app.use(bodyParser.urlencoded({
+app.use(bodyParser.urlencoded({  
     extended: true
 }));
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://localhost/resthub');
+//const con = 'mongodb://todouser1:todouser11@ds151393.mlab.com:51393/todo1';
+mongoose.connect('mongodb://todo1user:todo1user@ds151393.mlab.com:51393/todo1', { useNewUrlParser: true });
 
 var db = mongoose.connection;
 // Setup server port

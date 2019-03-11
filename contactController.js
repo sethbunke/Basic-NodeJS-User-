@@ -1,9 +1,9 @@
 // Import contact model
-Contact = require('./contactModel');
+User = require('./contactModel');
 
 // Handle index actions
 exports.index = function (req, res) {
-    Contact.get(function (err, contacts) {
+    User.get(function (err, contacts) {
         if (err) {
             res.json({
                 status: "error",
@@ -12,7 +12,7 @@ exports.index = function (req, res) {
         }
         res.json({
             status: "success",
-            message: "Contacts retrieved successfully",
+            message: "Users retrieved successfully",
             data: contacts
         });
     });
@@ -20,19 +20,21 @@ exports.index = function (req, res) {
 
 // Handle create contact actions
 exports.new = function (req, res) {
-    var contact = new Contact();
-    contact.name = req.body.name ? req.body.name : contact.name;
-    contact.gender = req.body.gender;
-    contact.email = req.body.email;
-    contact.phone = req.body.phone;
+    var contact = new User();
+    contact.loginName = req.body.loginName ? req.body.loginName : contact.loginName;
+    contact.firstName = req.body.firstName ? req.body.firstName : contact.firstName;
+    contact.lastName = req.body.lastName ? req.body.lastName : contact.lastName;
+    contact.fullName = req.body.fullName ? req.body.fullName : contact.fullName;    
+    contact.emailAddress = req.body.emailAddress;
+    contact.jobTitle = req.body.jobTitle;
 
     // save the contact and check for errors
     contact.save(function (err) {
-        // if (err)
-        //     res.json(err);
+        if (err)
+            res.json(err);
 
         res.json({
-            message: 'New contact created!',
+            message: 'New user created!',
             data: contact
         });
     });
@@ -41,11 +43,11 @@ exports.new = function (req, res) {
 
 // Handle view contact info
 exports.view = function (req, res) {
-    Contact.findById(req.params.contact_id, function (err, contact) {
+    User.findById(req.params.contact_id, function (err, contact) {
         if (err)
             res.send(err);
         res.json({
-            message: 'Contact details loading..',
+            message: 'User details loading..',
             data: contact
         });
     });
@@ -54,21 +56,23 @@ exports.view = function (req, res) {
 // Handle update contact info
 exports.update = function (req, res) {
 
-    Contact.findById(req.params.contact_id, function (err, contact) {
+    User.findById(req.params.contact_id, function (err, contact) {
         if (err)
             res.send(err);
 
-        contact.name = req.body.name ? req.body.name : contact.name;
-        contact.gender = req.body.gender;
-        contact.email = req.body.email;
-        contact.phone = req.body.phone;
+        contact.loginName = req.body.loginName ? req.body.loginName : contact.loginName;
+        contact.firstName = req.body.firstName ? req.body.firstName : contact.firstName;
+        contact.lastName = req.body.lastName ? req.body.lastName : contact.lastName;
+        contact.fullName = req.body.fullName ? req.body.fullName : contact.fullName;    
+        contact.emailAddress = req.body.emailAddress;
+        contact.jobTitle = req.body.jobTitle;
 
         // save the contact and check for errors
         contact.save(function (err) {
             if (err)
                 res.json(err);
             res.json({
-                message: 'Contact Info updated',
+                message: 'User Info updated',
                 data: contact
             });
         });
@@ -78,7 +82,7 @@ exports.update = function (req, res) {
 
 // Handle delete contact
 exports.delete = function (req, res) {
-    Contact.remove({
+    User.remove({
         _id: req.params.contact_id
     }, function (err, contact) {
         if (err)
@@ -86,7 +90,7 @@ exports.delete = function (req, res) {
 
         res.json({
             status: "success",
-            message: 'Contact deleted'
+            message: 'User deleted'
         });
     });
 };
